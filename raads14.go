@@ -1,10 +1,5 @@
-/*
-
-RAADS-14 screen for autism spectrum disorder (ASD)
-https://doi.org/10.1186/2040-2392-4-49
-
-*/
-
+// RAADS14 screens for autism spectrum disorder (ASD).
+// https://doi.org/10.1186/2040-2392-4-49
 package main
 
 import (
@@ -14,10 +9,10 @@ import (
 	"strings"
 )
 
-// Answers to questions from the person
+// Answers to questions from the person.
 var answers [14]int
 
-// Options for answers to questions
+// Options for answers to questions.
 var options = [4]string{
 	"Never true",
 	"True only when I was younger than late-adolescence",
@@ -25,7 +20,7 @@ var options = [4]string{
 	"True now and when I was younger than late-adolescence",
 }
 
-// Questions to ask the person
+// Questions to ask the person.
 var questions = [14]string{
 	"It is difficult for me to understand how other people are feeling when we are talking.",
 	"Some ordinary textures that do not bother others feel very offensive when they touch my skin.",
@@ -43,14 +38,14 @@ var questions = [14]string{
 	"I get extremely upset when the way I like to do things is suddenly changed.",
 }
 
-// Domains for questions
+// Domains for questions.
 var domains = [3][]int{
 	{12, 0, 8, 3, 10, 11, 13}, // Mentalizing deficits
 	{2, 4, 5, 7},              // Social anxiety
 	{1, 6, 9},                 // Sensory reactivity
 }
 
-// Main program asks questions and displays results
+// Main program asks questions and displays results.
 func main() {
 	askall()
 	review()
@@ -61,14 +56,14 @@ func main() {
 	report()
 }
 
-// Clear the terminal screen
+// Clear the terminal screen.
 func clear() {
 	c := exec.Command("clear")
 	c.Stdout = os.Stdout
 	c.Run()
 }
 
-// Lowercase the first letter in sentences
+// Lowercase the first letter in sentences.
 func lcfirst(s string) string {
 	if s[0:2] == "I " {
 		return s
@@ -76,14 +71,14 @@ func lcfirst(s string) string {
 	return strings.ToLower(s[0:1]) + s[1:]
 }
 
-// Ask all questions
+// Ask all questions.
 func askall() {
 	for qn, _ := range questions {
 		ask(qn)
 	}
 }
 
-// Ask and answer the question
+// Ask and answer the question.
 func ask(qn int) {
 	var answered bool
 	for !answered {
@@ -102,7 +97,7 @@ func ask(qn int) {
 	}
 }
 
-// Check for validity using the trick question
+// Check for validity using the trick question.
 func check() bool {
 	var prevAnswer int
 	for i, answer := range answers {
@@ -121,7 +116,7 @@ func check() bool {
 	return false
 }
 
-// Review answers and change them
+// Review answers and change them.
 func review() {
 	var confirm string
 	for confirm != "y" {
@@ -148,12 +143,12 @@ func review() {
 	}
 }
 
-// Reverse the answer to trick question
+// Reverse the answer to trick question.
 func reverse() {
 	answers[5] = 3 - answers[5]
 }
 
-// Report results
+// Report results.
 func report() {
 	clear()
 	var total int
